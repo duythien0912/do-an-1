@@ -1,95 +1,50 @@
-var cities = [];
-var totalCities ;
-
-var recordDistance;
-var bestEver;
-
+var str =[];
+var y =[];
+window.onload = function what(){
+    setup();
+};
 function setup() {
+    if(document.getElementById("inputDiv")!=null){
+        z =document.getElementById("inputDiv");
+        document.getElementById("inputDiv").innerHTML ="";    
+    }else{
+        z = document.createElement("div");
+        z.setAttribute("id", "inputDiv");
+        document.body.appendChild(z);
+    }
+    delete y;
+    var x = document.getElementById("citinumber").value;    
+    console.log("toalciti", x);
+    var T = x*(x-1)/2;
+    console.log("toalStr", T);
     
-    createCanvas(400, 300);
-    
-   //  totalCities.value = "";
-   // recordDistance.value = "" ;
-   // bestEver.value = "" ;
-   // cities.value = "";
-   delete d;
-
+    for (var i = 0; i < T; i++) {
+        
+         y[i] = document.createElement("input");
+         y[i].setAttribute("id", i);
+         y[i].setAttribute("class", "inputOfLength");
+        console.log("y:",i, y[i]);
+        z.appendChild(y[i]);
+    }
+}
+function getinput() {
     var x = document.getElementById("citinumber").value;
-    totalCities = x;
-
-    for (var i = 0; i < totalCities ; i++ ){
-        var v = createVector(random(width), random(height));
-        cities[i] = v;
+    var T = x*(x-1)/2;
+    for(var i=0;i<T;i++){
+        str[i] = document.getElementById(i).value;
+        console.log("str",i,str[i]);
     }
-
-    var d = calcDistance(cities);
-    recordDistance = d;
-    bestEver = cities.slice();
+}
+function clear() {
+    var inputs = document.getElementsByTagName('input');
+    while (inputs.length) inputs[0].parentNode.removeChild(inputs[0]);
+}
+function justdoit() {
+    var x = document.getElementById("citinumber").value;    
+    bestsum = 0;
+    var xuatphat = str[0];
+    for (var i; i< x;i++){
+        if (str[i] < str[i+1]) ;
+    }
 
 }
-
-function draw() {
-
-    var x = document.getElementById("citinumber").value;
-    totalCities = x;
-
-    background(0);
-    fill(225,10,50);
-    for (var i = 0; i < cities.length ; i++ ){
-        ellipse(cities[i].x, cities[i].y, 15, 15);
-    }
-
-    stroke(255);
-    strokeWeight(1);
-    noFill();
-    beginShape();
-    for (var i = 0; i < cities.length ; i++ ){
-        //vertex(cities[i].x, cities[i].y);
-    }
-    endShape();
-
-    var i = floor(random(cities.length));
-    var j = floor(random(cities.length));
-    swap(cities, i, j);
-
-    stroke(250, 255, 255);
-    strokeWeight(4);
-    noFill();
-    beginShape();
-    for (var i = 0; i < cities.length ; i++ ){
-        vertex(bestEver[i].x, bestEver[i].y);
-        //alert(bestEver);
-    }
-    endShape();
-
-    var i = floor(random(cities.length));
-    var j = floor(random(cities.length));
-    swap(cities, i, j);
-
-    var d = calcDistance(cities);
-    if (d < recordDistance){
-        recordDistance = d;
-        bestEver = cities.slice();        
-        console.log(d);
-    }
-
-
-
-
-
-}
-function swap (a, i, j){
-    var temp = a [i];
-    a[i] = a[j];
-    a[j] = temp;
-}
-
-function calcDistance(points) {
-    var sum = 0;
-    for (var i = 0; i < points.length-1; i++){
-        var d = dist(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
-        sum += d;
-    }
-    return sum;
-}
-
