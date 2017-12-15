@@ -1,20 +1,94 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
-    <script language="javascript" src="libraries/p5.dom.js"></script>
-    <script language="javascript" type="text/javascript" src="sketch.js"></script>
-  </head>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <title>Tim duong ngan nhat</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/buttoninput.js"></script>
+  <script src="js/calcDistance.js"></script>
+  <script src="js/calculateAndDisplayRoutefortext.js"></script>  
+  <script src="js/calculateRoute.js"></script>
+  <script src="js/DisplayRoute.js"></script>    
+  <script src="js/findthebestway.js"></script>  
+  <script src="js/main.js"></script>
+  <script src="js/newway.js"></script>
+  <script src="js/returnbestway.js"></script>
+  <script src="js/returnbestway.1.js"></script>
   
-  <body>
-    Cities = <input type="number" id="citinumber" value="4">
-    <button onclick="setup()">Submit</button>
-    <button onclick="getinput()">Getstreet</button>
-    <button onclick="justdoit()">Doit</button> <br>   
-    <p>xin hay nhap o du lieu theo dang nhu sau</p>
-    <img src="img/Untitled.png" height="400" width="400" style="display:block;
-    margin:auto;">
-     </body>
- <!--    <button onclick="clear()">Clear</button> <br>
- -->
- </html>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div id="right-panel">
+        <div class="buttontext">
+          <input type="submit" id="submittext" value="Text">
+        </div>
+        <div class="buttoninput">
+          <input type="submit" id="submitininput" value="Input">
+        </div>
+  
+    <div class="search-panel" >
+        <div id="panelofinput" class="panelofinput" style="display: none">
+        <input type="file" id="files" name="file" /> File read: 
+        <textarea id="output"></textarea>
+        <script>
+            function handleFileSelect(evt) {
+                var files = document.getElementById('files').files;
+                if (!files.length) {
+                  alert('Please select a file!');
+                  return;
+                }
+        
+                var file = files[0];
+                var reader = new FileReader();
+                reader.onloadend = function(evt) {
+                    if (evt.target.readyState == FileReader.DONE) { // DONE == 2
+                        document.getElementById('output').textContent = evt.target.result;
+                    }  
+                };
+                reader.readAsText(file, "UTF-8");
+            }
+        document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        </script>
+      </div>
+      <div class="paneloftext">
+      <b>Bắt đầu:</b>
+      <input id="autocomplete" value="Quận 1, Ho Chi Minh, Vietnam" type="text"></input>
+      <br>
+      <div id="add-new-way">
+        <b>địa điểm:</b>
+        <input id="autocomplete2" value="quận Thủ Đức, Ho Chi Minh, Vietnam" type="text"></input>
+
+        <input type="submit" id="submit-2" value="+">
+        <div id="add-new"></div>
+      </div>
+      <br>
+      <b>End</b>
+      <br>
+
+      <br>
+      <div class="button-01">
+        <input type="submit" id="submit" value="Tính và vẽ">
+      </div>
+      <div class="button-01" style="display: none">
+        <input type="submit" id="submittest" value="Vẽ">
+      </div>
+    </div>
+      <div class="button-01"  role="alert"  style="display: none">
+          <input type="submit" id="submitinput" value="Tính và Vẽ" >
+        </div>
+    </div>
+    <div id="directions-panel"></div>
+    <div id="findthebestway" style="display: none"></div>
+    <div id="thebestway"></div>
+    <div id="thebestwaygo" style="display: none"></div>
+  </div>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyfjjFTCSK1Es7PODiNV3recpxSBXNi4g&callback=initMap&libraries=places">
+  </script>
+</body>
+
+</html>
